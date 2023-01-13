@@ -7,8 +7,6 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - '**.md'
 
 jobs:
   build:
@@ -21,9 +19,13 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    
     - name: Restore dependencies
+      working-directory: APIForTest
       run: dotnet restore
     - name: Build
+      working-directory: APIForTest
       run: dotnet build --no-restore
     - name: Test
+      working-directory: APIForTest
       run: dotnet test --no-build --verbosity normal
